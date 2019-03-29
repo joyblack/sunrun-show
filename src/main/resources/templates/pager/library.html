@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('index')">
+</head>
+<body>
+<div th:replace="common/module::commonNav('pager')"></div>
+<div class="container">
+    <h1 class="page-header">library doc</h1>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>doc name</th>
+            <th>uuid</th>
+            <th>create time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="file:${files}">
+            <td th:text="${file.id}"></td>
+            <td th:text="${file.name}"></td>
+            <td th:text="${file.uuid}"></td>
+            <td th:text="${file.time}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

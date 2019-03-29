@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('nlp')">
+</head>
+<body>
+<div id="wrapper">
+    <div th:replace="common/module::commonNav('nlp-recommend')"></div>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div th:replace="common/module::module-nav2"></div>
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>文本推荐</h2>
+                <small>在搜索引擎的输入框中，用户输入一个词，搜索引擎会联想出最合适的搜索词，HanLP实现了类似的功能。 可以动态调节每种识别器的权重</small>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>文本推荐</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal">
+
+                            <div class="form-group"><label class="col-lg-2 control-label">短语个数</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control" id="size" name="size">
+                                        <option value="1">1</option>
+                                        <option value="10">5</option>
+                                        <option value="20">10</option>
+                                        <option value="30">15</option>
+                                        <option value="50">20</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-lg-2 control-label">搜索词</label>
+                                <div class="col-lg-10">
+                                    <textarea id="content" name="content" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button id="analysis" class="btn btn-sm btn-primary" type="button">开始分析</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>分析结果</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>耗时（毫秒）</th>
+                                <th>结果</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>#</td>
+                                <td id="usedTime"></td>
+                                <td id="result"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(function(){
+        $("#analysis").click(function(){
+            $.ajax({
+                url:"[[@{/nlp/startRecommend}]]",
+                type:"post",
+                dataType: "json",
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "size":$("#size").val(),
+                    "content":$("#content").val()
+                }),
+                success:function(data){
+                    // console.log(data);
+                    $("#usedTime").html(data['usedTime']);
+                    $("#result").html(data['result']);
+                },
+                error:function(e){
+                    console.log(e);
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

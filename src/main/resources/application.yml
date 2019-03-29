@@ -1,0 +1,29 @@
+## common settings
+server:
+  port: 8099
+spark:
+  app:
+    name: sunrun-movie-show
+  master: local
+## pager setting
+pager:
+  library: C:/sunrun-show/library/
+  document: C:/sunrun-show/document/
+  home: C:/sunrun-show/
+  database: C:/sunrun-show/library_table.txt
+  upload:
+    check: C:/sunrun-show/upload_check/
+    learn: C:/sunrun-show/upload_learn/
+    count: C:/sunrun-show/upload_count/
+    movie: C:/sunrun-show/upload_movie/
+# emotion
+emotion:
+  upload: C:/sunrun-show/emotion/upload/
+  library: C:/sunrun-show/emotion/library/
+
+## file upload
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB

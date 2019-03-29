@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('index')">
+</head>
+<body>
+<div th:replace="common/module::commonNav('example')"></div>
+<div class="container">
+
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-12">
+
+            <div class="jumbotron">
+                <h1>Hello, Mr.Arya!</h1>
+                <p>This is an example to show the big data and algorithm. To select next panel's to see it in action.</p>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-lg-4">
+                    <h2>Jaccard Similarity</h2>
+                    <p>Also known as Jaccard similarity coefficient, it is used to compare similarities and differences between finite sample sets. The greater the Jaccard coefficient, the higher the similarity of samples. </p>
+                    <p>
+                        <a class="btn btn-default" th:href="@{/algorithm/jaccard}" role="button">View details »</a>
+                    </p>
+                </div><!--/.col-xs-6.col-lg-4-->
+                <div class="col-xs-6 col-lg-4">
+                    <h2>Cosine Similarity</h2>
+                    <p>Cosine similarity, also known as cosine similarity, is to evaluate the similarity of two vectors by calculating their angle cosine values. Cosine similarity draws vectors into vector space according to coordinate values, such as the most common two-dimensional space.
+                    </p>
+                    <p><a class="btn btn-default" th:href="@{/algorithm/cosine}" role="button">View details »</a></p>
+                </div><!--/.col-xs-6.col-lg-4-->
+                <div class="col-xs-6 col-lg-4">
+                    <h2>Pearson Similarity</h2>
+                    <p>To reflect the degree of linear correlation between two random variables, this similarity has more effect and limit, like compute A
+                    and B must be obey the law of normal distribution.</p>
+                    <p><a class="btn btn-default" th:href="@{/algorithm/pearson}" role="button">View details »</a></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-lg-4">
+                    <h2>Ex.WordCount</h2>
+                    <p>Word count is the simple example, for big data learn like learn other code language's start program 'hello world', but is's very intersted, we must know it's means.<p>
+                    <a class="btn btn-default" th:href="@{/count/index}" role="button">View details »</a></p>
+                </div><!--/.col-xs-6.col-lg-4-->
+                <div class="col-xs-6 col-lg-4">
+                    <h2>Ex.Pager</h2>
+                    <p>Pager example used the jaccard algorithm to compute the pager's similarity, this is a good way to concern. And you will konwn it is also interested to compute some similarity program. <p>
+                    <a class="btn btn-default"  th:href="@{/pager/index}" role="button">View details »</a></p>
+                </div><!--/.col-xs-6.col-lg-4-->
+                <div class="col-xs-6 col-lg-4">
+                    <h2>Ex.Movie</h2>
+                    <p>This example used we learn three similarity algorithm:jaccard,cosine and pearson, we can get the three result and decide which one is reliable. </p>
+                    <p><a class="btn btn-default" th:href="@{/movie/index}" role="button">View details »</a></p>
+                </div><!--/.col-xs-6.col-lg-4-->
+            </div><!--/row-->
+        </div>
+    </div>
+    <hr>
+
+    <footer>
+        <p>© GuanZhou Sunrun Company 2019.1.23</p>
+    </footer>
+    </div><!--/row-->
+
+
+
+</div>
+</body>
+</html>

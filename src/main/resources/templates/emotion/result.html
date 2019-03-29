@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('index')">
+</head>
+<body>
+
+<div th:replace="common/module::commonNav('emotion')"></div>
+
+<div class="container">
+    <h1 class="page-header">count result </h1>
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <th> item </th>
+                <th> type </th>
+                <th> analysis result </th>
+            </thead>
+
+            <tbody>
+                <tr><td># 1</td><td>positive words</td><td th:text="${session.data.positive}"></td></tr>
+                <tr><td># 2</td><td>negative words</td><td th:text="${session.data.negative}"></td></tr>
+                <tr class="warning"><td># 3</td><td>show emotion</td>
+                    <td th:if="${session.data.result > 0}">
+                        <span clas="text-success"><strong class="text-success">积极的、正面情感</strong></span>
+                    </td>
+                    <td th:if="${session.data.result == 0}">
+                        <span clas="text-success"><strong class="text-primary">中性情感</strong></span>
+                    </td>
+                    <td th:if="${session.data.result < 0}">
+                        <span clas="text-success"><strong class="text-danger">消极的、负面情感</strong></span>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+<script>
+    $(function () {
+        $(".my_intersection").click(function(){
+            $('#myModal').modal({
+                keyboard: false
+            });
+            $("#intersection_content").html($(this).next().html());
+        });
+
+    })
+</script>
+
+</body>
+</html>

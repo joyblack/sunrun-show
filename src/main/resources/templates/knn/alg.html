@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('knn')">
+</head>
+<body>
+<div id="wrapper">
+    <div th:replace="common/module::commonNav('knn-alg')"></div>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div th:replace="common/module::module-nav2"></div>
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>KNN算法</h2>
+                <small>一种分类算法。</small>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>数据分布图</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                                    <div id="main" style="width: 600px;height:500px;"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-3">
+                                    <input class="form-control" type="number" placeholder="x属性" id="xx"/>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input class="form-control" type="number" placeholder="y属性" id="yy"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10 text-center">
+                                    <button id="analysis" class="btn btn-sm btn-primary" type="button">开始分析</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(function(){
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        $.ajax({
+            url:"[[@{/knn/getData}]]",
+            type:"post",
+            dataType: "json",
+            contentType: "application/json",
+            data:JSON.stringify({
+            }),
+            success:function(data){
+                console.log(data);
+                // 初始化数据配置
+                // 指定图表的配置项和数据
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross'
+                        }
+                    },
+                    title: {
+                        text: '数据分类图'
+                    },
+                    legend: {
+                        data: data['legends'],
+                        align: 'left'
+                    },
+                    xAxis: {
+                        scale: true
+                    },
+                    yAxis: {
+                        scale: true
+                    },
+                    series: data['ser']
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            },
+            error:function(e){
+                console.log(e);
+            }
+        });
+
+        $("#analysis").click(function(){
+            $.ajax({
+                url:"[[@{/nlp/algStart}]]",
+                type:"post",
+                dataType: "json",
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "xx":$("#xx").val(),
+                    "yy":$("#yy").val()
+                }),
+                success:function(data){
+
+                },
+                error:function(e){
+                    console.log(e);
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

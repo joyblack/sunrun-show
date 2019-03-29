@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('index')">
+</head>
+<body>
+
+<div th:replace="common/module::commonNav('pager')"></div>
+
+<div class="container-fluid">
+    <h1 class="page-header">check result</h1>
+
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+        <div class="panel panel-success">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        #1 computer result
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <th>#</th>
+                        <th>path</th>
+                        <th>intersection count</th>
+                        <th>union count</th>
+                        <th>similarity</th>
+                        <th>intersection</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="d,stat:${session.data.computeResult}">
+                            <td th:text="${stat.index}"></td>
+                            <td th:text="${d.file}"></td>
+                            <td th:text="${d.intersection_words_count}"></td>
+                            <td th:text="${d.union_words_count}"></td>
+                            <td class="text-danger"><strong th:text="${d.jaccard}" ></strong></td>
+                            <td><button class="my_intersection btn btn-sm btn-primary">detail</button>
+                                <span class="text-hide" th:text="${d.intersection_words}"></span></td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        #2 doc words
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body" th:text="${session.data.filterWords}"></div>
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        #3.top 10 words
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body" th:text="${session.data.top10Words}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">doc intersection words</h4>
+            </div>
+            <div class="modal-body">
+                <p id="intersection_content"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<script>
+    $(function () {
+        $(".my_intersection").click(function(){
+            $('#myModal').modal({
+                keyboard: false
+            });
+            $("#intersection_content").html($(this).next().html());
+        });
+
+    })
+</script>
+
+</body>
+</html>

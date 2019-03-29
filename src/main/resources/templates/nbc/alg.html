@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('nbc')">
+</head>
+<body>
+<div id="wrapper">
+    <div th:replace="common/module::commonNav('nbc-alg')"></div>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div th:replace="common/module::module-nav2"></div>
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>篮球实例</h2>
+                <small>通过NBC分类器实现的一个应用.</small>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>是否适合打篮球</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal">
+
+                            <div class="form-group"><label class="col-lg-2 control-label">天气</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control" id="outlook" name="outlook">
+                                        <option value="晴">晴</option>
+                                        <option value="阴">阴</option>
+                                        <option value="雨">雨</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-lg-2 control-label">温度</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control" id="temperature" name="temperature">
+                                        <option value="热">热</option>
+                                        <option value="温暖">温暖</option>
+                                        <option value="冷">冷</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-lg-2 control-label">湿度</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control" id="humidity" name="humidity">
+                                        <option value="高">高</option>
+                                        <option value="正常">正常</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-lg-2 control-label">风力</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control" id="wind" name="wind">
+                                        <option value="强">强</option>
+                                        <option value="弱">弱</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button id="analysis" class="btn btn-sm btn-white" type="button">开始分析</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>分析结果</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>耗时（毫秒）</th>
+                                <th>结果</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>#</td>
+                                <td id="usedTime"></td>
+                                <td id="result"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(function(){
+        $("#analysis").click(function(){
+            $.ajax({
+                url:"[[@{/nbc/startAlg}]]",
+                type:"post",
+                dataType: "json",
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "outlook":$("#outlook").val(),
+                    "humidity":$("#humidity").val(),
+                    "temperature":$("#temperature").val(),
+                    "wind":$("#wind").val()
+                }),
+                success:function(data){
+                    // console.log(data);
+                    $("#usedTime").html(data['usedTime']);
+                    $("#result").html(data['data']);
+                },
+                error:function(e){
+                    console.log(e);
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

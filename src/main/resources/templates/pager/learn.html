@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('index')">
+</head>
+<body>
+
+<div th:replace="common/module::commonNav('pager')"></div>
+
+<div class="container">
+    <h1 class="page-header">learn</h1>
+
+            <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/pager/startLearn">
+                <div class="form-group">
+                    <label for="learnFile" class="col-sm-2  control-label">learn pager</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="learnFile" name="learnFile">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">start learn</button>
+                    </div>
+                </div>
+            </form>
+
+
+
+</div>
+
+</body>
+</html>

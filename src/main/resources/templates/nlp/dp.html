@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/module::commonHeader('nlp')">
+</head>
+<body>
+<div id="wrapper">
+    <div th:replace="common/module::commonNav('nlp-org')"></div>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div th:replace="common/module::module-nav2"></div>
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>依存句法分析</h2>
+                <small>依存句法分析（MaxEnt和神经网络句法模型需要-Xms1g -Xmx1g -Xmn512m）。所谓语义已是指在句子结构中分析实词和实词之间的语义关系，这种关系是一种基于现实的概念依存关系。
+                ，只有当词语进入到句子时才会存在。语义已存分析目标是跨越句子表层句法结构的束缚，直接获取深层的语义信息。</small>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>依存句法分析</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal">
+                            <div class="form-group"><label class="col-lg-2 control-label">填写文本</label>
+                                <div class="col-lg-10">
+                                    <textarea id="content" name="content" class="form-control" rows="10"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button id="analysis" class="btn btn-sm btn-primary" type="button">开始分析</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>分析结果</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>耗时（毫秒）</th>
+                                <th>结果</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>#</td>
+                                <td id="usedTime"></td>
+                                <td id="result"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(function(){
+        $("#analysis").click(function(){
+            $.ajax({
+                url:"[[@{/nlp/startDp}]]",
+                type:"post",
+                dataType: "json",
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "type":$("#type").val(),
+                    "content":$("#content").val()
+                }),
+                success:function(data){
+                    // console.log(data);
+                    $("#usedTime").html(data['usedTime']);
+                    $("#result").html(data['result']);
+                },
+                error:function(e){
+                    console.log(e);
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>
